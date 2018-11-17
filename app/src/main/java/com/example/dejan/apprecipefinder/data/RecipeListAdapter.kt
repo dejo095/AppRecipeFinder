@@ -1,6 +1,7 @@
 package com.example.dejan.apprecipefinder.data
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.dejan.apprecipefinder.R
+import com.example.dejan.apprecipefinder.ShowLinkActivity
 import com.example.dejan.apprecipefinder.model.Recipe
 import com.squareup.picasso.Picasso
 
@@ -40,10 +42,6 @@ class RecipeListAdapter(private val list: ArrayList<Recipe>, private val context
             title.text = recipe.title
             ingredients.text = recipe.ingredients
 
-            linkButton.setOnClickListener {
-
-            }
-
             if (!TextUtils.isEmpty(recipe.thumbnail)) {
                 Picasso
                     .get()
@@ -57,7 +55,16 @@ class RecipeListAdapter(private val list: ArrayList<Recipe>, private val context
                     .load(R.mipmap.ic_launcher)
                     .into(thumbnail)
             }
-        }
 
-    }
+            linkButton.setOnClickListener {
+
+                var intent = Intent(context, ShowLinkActivity::class.java)
+                intent.putExtra("link", recipe.link.toString())
+                context.startActivity(intent)
+            }
+
+        } // end fun bindView()
+
+    } // end class ViewHolder
+
 }
